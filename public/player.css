@@ -1,0 +1,122 @@
+* {
+  box-sizing: border-box;
+  padding: 0;
+  border: none;
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #fff;
+}
+button {
+  outline: none;
+}
+:root {
+  --primary: #c00;
+  --bgPrimary: black;
+  --bgSecondary: #333;
+}
+/* iframe {
+  visibility: hidden;
+  display: none;
+} */
+html {
+  font-size: 62.45%;
+  caret-color: var(--primary);
+  height: 100%;
+}
+
+#player {
+  display: flex;
+  background-color: var(--bgPrimary);
+  color: #fff;
+  flex-direction: column;
+  align-items: stretch;
+  transition: max-height 0.2s ease-out;
+  font-size: 2rem;
+  top: initial;
+  max-height: 10vh;
+  height: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  position: fixed;
+}
+
+#player.open {
+  max-height: 100%;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+
+#roomInfo {
+  flex: 1;
+  display: none;
+  flex-direction: column;
+}
+
+#roomInfo.open {
+  display: flex;
+}
+
+.host {
+  padding: 23px 23px;
+  text-align: center;
+}
+
+#roomInfo h3 {
+  padding: 23px 23px;
+}
+
+.remotes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.remotes li {
+  padding: 25px 25px;
+}
+#playerButtons {
+  flex: 0.3;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 0 5vw;
+}
+
+#playerButtons.minimized {
+  flex: 1;
+}
+.playerButton {
+  border-radius: 50%;
+  padding: 15px 15px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  background-color: var(--bgSecondary);
+}
+
+.mid {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.playerButton:hover {
+  background-color: #c00;
+}
+
+#minimizePlayer {
+  position: absolute;
+  top: -60px;
+  right: 20px;
+  transform: rotate(180deg);
+  background-color: var(--bgPrimary);
+  transition: all 0.2s ease;
+}
+
+#minimizePlayer.open {
+  transform: rotate(0deg);
+  top: 20px;
+  background-color: var(--bgSecondary);
+}

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YT Remote</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="player.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
+
+</head>
+<body>
+    <div class="infoDisplay">
+        <span>
+            <label>Seu Nome: </label>
+            <input type="text" id="nameInput" name="name"/>
+        </span>
+        <span>
+            <label>Seu ID: </label>
+            <h2 id="clientId">Gerando...</h2>
+        </span>
+        <button class="actionButton" id="register" disabled>Registrar</button>
+        <h4 style="text-align: center; margin-top: 15px;">Use esse ID em outro aparelho para se conectar ao Youtube Music</h2>
+
+        </div>
+        <div class="connect">
+            <span>
+                <label>Conecte-se: </label>
+                <input type="text" id="IdInput" name="to"/>
+            </span>
+
+            <button class="actionButton" id="connect" disabled>Conectar</button>
+        </div>
+
+        <div id="player" >
+            <div id="roomInfo"></div>
+            <div id="musicPlayer"></div>
+            <div class="buttons minimized" id="playerButtons">
+                <button class="playerButton" id="minimizePlayer">
+                    <i class="fas fa-angle-down"></i>
+                </button>
+
+                <button class="playerButton" id="previous" onclick="handleAction(this)">
+                    <i class="fas fa-step-backward"></i>
+                </button>
+              
+                <button class="playerButton mid"  id="play" onclick="handleAction(this)">
+                    <i class="fas fa-play"></i>
+                </button>
+                <button class="playerButton" id="next"  onclick="handleAction(this)">
+                    <i class="fas fa-step-forward"></i>
+                </button>
+            </div>
+        </div>
+
+    <script src="/socket.io/socket.io.js"></script>
+   
+    <script src="js/youtube.js"></script>
+    <script src="js/index.js"></script>
+    <script src="js/player.js"></script>
+</body>
+</html>
