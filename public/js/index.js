@@ -15,35 +15,23 @@ let client = {
 let roomInfo
 let registered = false
 let isHost = false
-// const displayRoomInfo = ({ remotes, host }, openPlayer = false) => {
-//   title = host.id === client.id ? 'Transmitindo' : `Conectado a ${host.name}`
+const displayRoomInfo = ({ remotes, host }, openPlayer = false) => {
+  title = host.id === client.id ? 'Transmitindo' : `Conectado a ${host.name}`
 
-//   const hostDisplay = `<span class="host">${title}</span>`
-//   const remotesDisplay =
-//     '<ul class="remotes">' +
-//     remotes.map(({ name, id }) =>
-//       id !== client.id ? `<li>${name}</li>` : ''
-//     ) +
-//     '</ul>'
+  const hostDisplay = `<span class="host">${title}</span>`
+  const remotesDisplay =
+    '<ul class="remotes">' +
+    remotes.map(({ name, id }) =>
+      id !== client.id ? `<li>${name}</li>` : ''
+    ) +
+    '</ul>'
 
-//   roomDisplay.innerHTML =
-//     hostDisplay + '<h3> Usuários remotos </h3>' + remotesDisplay
+  roomDisplay.innerHTML =
+    hostDisplay + '<h3> Usuários remotos </h3>' + remotesDisplay
 
-//   if (!player.classList.contains('open') && openPlayer) {
-//     minimize.click()
-//   }
-// }
-
-const openYoutube = () => {
-  let youtube = window.open(
-    'https://music.youtube.com/watch?v=ok4i1aPrecw&list=RDAMVMok4i1aPrecw',
-    'Music',
-    'height=200,width=200'
-  )
-
-  let script = document.createElement('script')
-  script.src = 'js/youtube.js'
-  youtube.document.head.appendChild(script)
+  if (!player.classList.contains('open') && openPlayer) {
+    minimize.click()
+  }
 }
 
 const toggleConnBtn = () => {
@@ -75,9 +63,9 @@ window.onload = () => {
 
   nameInput.addEventListener('keyup', e => {
     client.name = e.target.value
-    if(client.name && client.id){
+    if (client.name && client.id) {
       registerButton.disabled = false
-    }else{
+    } else {
       registerButton.disabled = true
     }
     toggleConnBtn()
@@ -132,13 +120,13 @@ socket.on('msg', msg => {
 
 socket.on('roomJoined', room => {
   roomInfo = room
-  // displayRoomInfo(room, true)
+  displayRoomInfo(room, true)
 })
 
 socket.on('newRemote', user => {
   if (!isHost) {
     roomInfo.remotes.push(user)
-    // displayRoomInfo(roomInfo, false)
+    displayRoomInfo(roomInfo, false)
   }
 })
 
@@ -147,11 +135,7 @@ socket.on('joinedHost', room => {
     isHost = true
     roomInfo = room
 
-    // displayRoomInfo(room, true)
-
-    // if (roomInfo.remotes.length === 1) {
-    //   openYoutube()
-    // }
+    displayRoomInfo(room, true)
   }
 })
 // https://music.youtube.com/watch?v=ok4i1aPrecw&list=RDAMVMok4i1aPrecw
@@ -163,7 +147,7 @@ tag.src = 'https://www.youtube.com/iframe_api'
 var firstScriptTag = document.getElementsByTagName('script')[0]
 firstScriptTag.parentNode.insertBefore(tag, firstScriptTag)
 
-const playlist = 'PLtIbAho4zwczxz76AglLhAGYcaTQo4hcX'
+const playlist = 'PLtIbAho4zwcyXslCLMyNK9pJyWLr1HdCx'
 async function handlePlayerLoaded(e) {
   e.target.loadPlaylist({
     list: playlist,
@@ -204,6 +188,10 @@ socket.on('playerEventToHost', actionType => {
   }
 })
 function handleAction(e) {
-  console.log(e.id)
-  socket.emit('playerEvent', e.id)
+  if (isHost) {
+    const fn = playerActions[e.id]
+    fn()
+  } else {
+    socket.emit('playerEvent', e.id)
+  }
 }

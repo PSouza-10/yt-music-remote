@@ -14,10 +14,10 @@ button {
   --bgPrimary: black;
   --bgSecondary: #333;
 }
-/* iframe {
+iframe {
   visibility: hidden;
   display: none;
-} */
+}
 html {
   font-size: 62.45%;
   caret-color: var(--primary);
